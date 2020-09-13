@@ -40,7 +40,7 @@ class Resource(object):
 		self.anime = {}					# 初始化储存动画的字典
 
 		for i in file_name:				# 使用一次循环导入列表中指定的所有贴图
-			self.pic[i] = pygame.image.load("./GameResources/pic/"+i).convert_alpha()
+			self.pic[i] = pygame.image.load("./Resources/pic/"+i).convert_alpha()
 
 		# 导入贴图并指定新代号, 预备后续处理
 		self.image["background"] = self.pic["background.png"]
@@ -57,13 +57,13 @@ class Resource(object):
 		self.image["bg3"] = self.pic["stg3bg3.png"]
 		self.image["bg4"] = self.pic["stg3bg4.png"]
 		#self.image["bg5"]=self.pic["eff02.png"]
-		self.image["bg5"] = pygame.image.load("./GameResources/pic/eff02.png").convert()
+		self.image["bg5"] = pygame.image.load("./Resources/pic/eff02.png").convert()
 
-		self.pic["reimu.png"] = pygame.image.load("./GameResources/Pic/reimu.png").convert()
+		self.pic["reimu.png"] = pygame.image.load("./Resources/Pic/reimu.png").convert()
 		self.pic["reimu.png"].set_colorkey((0, 0, 0))
 		self.image["reimu"] = self.pic["reimu.png"].subsurface((0, 0, 128, 256))
 
-		self.pic["cirno.png"] = pygame.image.load("./GameResources/pic/cirno.png").convert()
+		self.pic["cirno.png"] = pygame.image.load("./Resources/pic/cirno.png").convert()
 		self.pic["cirno.png"].set_colorkey((0, 0, 0))
 		self.image["cirno"] = self.pic["cirno.png"].subsurface((0, 0, 128, 256))
 
@@ -244,4 +244,4 @@ class Resource(object):
 			"tanshoot"
 		]
 		for i in range(len(se_name)):
-			self.se[se_myname[i]] = pygame.mixer.Sound("./GameResources/se/"+se_name[i])
+			self.se[se_myname[i]] = pygame.mixer.Sound("./Resources/se/"+se_name[i])

@@ -17,7 +17,7 @@ class GameWindow(object):
 		self.screen = pygame.display.set_mode([640, 480])
 		#self.screen = pygame.display.set_mode([640, 480], FULLSCREEN) 	# 全屏运行
 		self.clock = pygame.time.Clock()
-		self.stack = []									 # 定义界面栈, 防止scene函数重复调用
+		self.stack = []							# 定义界面栈, 防止scene函数重复调用
 		# self.count = 0
 		globe.high_score = 0
 

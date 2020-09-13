@@ -34,7 +34,7 @@ class TextPlayer(object):
 		self.rpic = globe.mgame.rsmanager.image["reimu"]
 		self.lpic_av = False
 		self.rpic_av = False
-		self.font = pygame.font.SysFont('SimHei', 20)
+		self.font = pygame.font.SysFont(None, 20)
 		self.rc = pygame.Rect(
 			globe.game_active_rect.left, globe.game_active_rect.bottom-100, globe.game_active_rect.width-128, 100)
 

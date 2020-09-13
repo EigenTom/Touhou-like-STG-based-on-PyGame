@@ -29,3 +29,14 @@
 
 4. 特色机能实现和功能改进
    * 实现低速模式, 顶上收点和穿墙模式等 `Touhou STG` 的特色机能.
+
+
+完整的游戏程序和资源位于 `/Game` 中, 主程序为 `main.py`, 该项目的逻辑结构见笔记第二章. 
+
+游戏贴图和音频资源取自东方第10作 《东方风神录》, 部分关卡设计和弹幕射击参考了
+https://github.com/takahirox/toho-like-js <br>
+https://github.com/TkhiienLok/Touhou <br>
+https://github.com/jikaiwen/pygame-touhou <br>
+
+教程和界面设计, 关卡设计仍未完成, 持续更新中
+

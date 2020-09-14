@@ -37,7 +37,7 @@ class Scene_GameOver(object):
 				elif event.key == pygame.K_ESCAPE:
 					globe.mgame.msmanager.play_SE("cancel")
 					globe.mgame.msmanager.pause()
-					globe.mgame.goto(scene_title.SceneTitle)
+					globe.mgame.goto(scene_title.Scene_Title)
 				elif event.key == pygame.K_r:
 					globe.mgame.msmanager.play_SE("cancel")
 					globe.scgame.__init__()

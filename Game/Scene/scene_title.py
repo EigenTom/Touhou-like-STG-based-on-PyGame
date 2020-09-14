@@ -4,6 +4,7 @@ from pygame.locals import *
 import sys
 import globe
 from Scene import scene_loading
+count = 0
 
 
 class TitleMenu(object):
@@ -97,12 +98,20 @@ class Scene_Title(object):
 		"""初始化主页面"""
 		self.rs = globe.mgame.rsmanager
 		self.menu = TitleMenu()
-
+		self.count = 0
+		self.fade = pygame.Surface(globe.mgame.screen.get_size())
 	def update(self):
 		"""主页面屏幕更新函数"""
+
 		self.menu.event_control()
 
 	def draw(self, screen):
 		"""绘制背景"""
 		screen.blit(self.rs.image["background"], (0, 0))
 		self.menu.draw(screen)
+
+		# 淡入效果 
+		if self.count <= 40:
+			self.fade.set_alpha((255 - (self.count) * 12))  # 对黑色遮罩进行透明化
+			screen.blit(self.fade, (0, 0))
+			self.count += 1

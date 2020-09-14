@@ -91,7 +91,7 @@ class TitleMenu(object):
 			screen.blit(self.fade, (0, 0))					# 在屏幕上绘制半透明遮罩模拟淡出效果
 
 
-class SceneTitle(object):
+class Scene_Title(object):
 	"""定义主页面类"""
 	def __init__(self):
 		"""初始化主页面"""

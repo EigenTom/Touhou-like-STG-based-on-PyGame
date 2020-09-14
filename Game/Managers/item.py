@@ -72,7 +72,7 @@ class ItemManager(object):
 	def draw(self, screen):
 		"""绘制物品函数"""
 		for i in self.item:
-			screen.blit(i.image,i.rect)
+			screen.blit(i.image, i.rect)
 
 
 class SPowerItem(object):

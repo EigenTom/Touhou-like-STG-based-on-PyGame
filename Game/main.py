@@ -1,7 +1,7 @@
 # -*- coding: UTF-8 -*-
 import pygame
 import Managers.resource  # 导入贴图资源
-from Scene import scene_title
+from Scene import scene_init
 import globe				# 设定全局变量
 from Managers import music
 import cache				# 导入贴图缓存
@@ -28,8 +28,9 @@ class GameWindow(object):
 		cache.cache_init()						# 初始化图像缓存
 		self.rsmanager = Managers.resource.Resource()		# 定位贴图资源管理器
 		self.msmanager = music.MusicManager()				# 定位音频管理器
-		self.myfont=pygame.font.SysFont(None,20)			# 定义用于显示帧速率的字体
-		self.goto(scene_title.SceneTitle)					# 切换至 'title', 开始游戏
+		self.myfont = pygame.font.SysFont("Heiti", 20)			# 定义用于显示帧速率的字体
+		#self.goto(scene_title.SceneTitle)					# 切换至 'title', 开始游戏
+		self.goto(scene_init.Scene_Init)
 
 	def goto(self, scene):
 		"""切换到 'scene'. 注意: 当且仅当游戏冷启动时可用该函数!"""
@@ -61,6 +62,7 @@ class GameWindow(object):
 			self.screen.blit(fps_img, fps_rect)
 
 			pygame.display.flip()				# 翻转当前帧, 应用屏幕变动
+
 
 if __name__ == '__main__':
 	globe.mgame = GameWindow()

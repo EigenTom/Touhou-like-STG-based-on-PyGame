@@ -5,6 +5,10 @@ import sys
 import globe
 from Scene import scene_loading
 from Scene import scene_title
+from PIL import Image, ImageFilter
+
+
+
 
 class PauseMenu(object):
 	"""初始化菜单按钮, 设定菜单内容和淡出切换效果"""
@@ -26,12 +30,7 @@ class PauseMenu(object):
 		self.index = 0				# 初始化高亮按键: 默认为 'Resume_Start'
 		self.choose = False			# 初始化按键选定状态
 		self.flash = 0				# 初始化按键闪烁帧
-
-		"""
-		# 设定页面切换效果: 淡出
-		self.fade = pygame.Surface(globe.mgame.screen.get_size())		# 设定遮罩尺寸
-		self.fade.fill((0, 0, 0))		# 以纯黑色填充遮罩
-		"""
+		self.count = 0
 
 	def event_control(self):
 		"""事件控制函数"""
@@ -75,21 +74,16 @@ class PauseMenu(object):
 					globe.scgame.update()
 					globe.mgame.back()
 
-			if (self.flash % 2) == 0 and (self.flash <= 40):		# 控制按键闪烁效果
-				tmp = self.image[self.index]
-				self.image[self.index] = self.image[self.index]
-				self.image[self.index] = tmp
+
 
 	def draw(self, screen):
 		"""定义菜单绘制函数"""
-
 		# 绘制 Logo
 		screen.blit(self.pause_logo, (160, 140))
 
 		# 绘制屏幕按键
 		for i in range(0, 3):
 			screen.blit(self.image[i], self.button_rect[i])
-		screen.blit(self.image[self.index], self.button_rect[self.index])
 
 
 class Scene_Menu(object):
@@ -100,13 +94,30 @@ class Scene_Menu(object):
 		self.menu = PauseMenu()
 		self.count = 0
 		self.fade = pygame.Surface(globe.mgame.screen.get_size())
-		#globe.mgame.screen.fill((128, 128, 0), globe.game_active_rect, BLEND_RGB_ADD)
+		self.imtmp = globe.mgame.screen.subsurface(Rect(31, 15, 386, 450)).copy()
+
+
+
 	def update(self):
 		"""主页面屏幕更新函数"""
 		self.menu.event_control()
 
 	def draw(self, screen):
 		"""绘制背景"""
+
+
+		if self.count <= 3:
+			# imtmp = globe.mgame.screen.subsurface(globe.game_active_rect).copy()
+			# 转换pygame 图像至 pil
+			raw_str = pygame.image.tostring(self.imtmp, "RGBA", False)
+			image = Image.frombytes("RGBA", self.imtmp.get_size(), raw_str)
+			imblur = image.filter(ImageFilter.BLUR)
+
+			raw_str = imblur.tobytes("raw", "RGBA")
+			imblur_pygame = pygame.image.fromstring(raw_str, imblur.size, "RGBA")
+			self.imtmp = imblur_pygame
+		self.count += 1
+		screen.blit(self.imtmp, (31, 16))
 		self.menu.draw(screen)
 
 	def start(self):

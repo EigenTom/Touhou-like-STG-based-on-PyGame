@@ -34,7 +34,7 @@ class Hud(object):
 		self.ff = 0
 
 		self.blood = blood
-		self.blood_show = False
+		self.blood_show =  False
 
 	def create_bonus(self, fp=60):
 		self.fb = fp
@@ -88,14 +88,13 @@ class Hud(object):
 			screen.blit(self.failed, (156, 131))
 
 		if self.blood_show:
-			max_heal_card = self.blood.max_heal_card #符卡最大血量上限
-			now_heal_card = self.blood.now_heal_card #现在符卡血量
-			max_heal_nosc = self.blood.max_heal_nosc #非符最大血量上限
-			now_heal_nosc = self.blood.now_heal_nosc #现在非符血量
+			max_heal_card = self.blood.max_heal_card 	# 符卡最大血量上限
+			now_heal_card = self.blood.now_heal_card 	# 现在符卡血量
+			max_heal_nosc = self.blood.max_heal_nosc 	# 非符最大血量上限
+			now_heal_nosc = self.blood.now_heal_nosc 	# 现在非符血量
 
-
-			card_per = self.blood.card_per #符卡百分比 <1
-			nosc_per = self.blood.nosc_per #非符百分比 <1
+			card_per = self.blood.card_per		# 符卡百分比 <1
+			nosc_per = self.blood.nosc_per		# 非符百分比 <1
 			
 			len1 = globe.game_active_rect.width*card_per*now_heal_card/max_heal_card
 			len2 = globe.game_active_rect.width*nosc_per*now_heal_nosc/max_heal_nosc

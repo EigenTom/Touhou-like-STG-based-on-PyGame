@@ -33,7 +33,6 @@ class Scene_Init(object):
             now = maple.image
             nowRect = now.get_rect()
             new = pygame.transform.rotate(now, maple.rinit)
-
             newRect = new.get_rect(center=nowRect.center)
             newRect.center = (maple.rect.x, maple.rect.y)
             screen.blit(new, newRect)

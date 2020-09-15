@@ -21,11 +21,7 @@ class Resource(object):
 			"front00.png",
 			"loading.png",
 			"point.png",
-			"quitb.png",
-			"quitd.png",
 			"resource.png",
-			"startb.png",
-			"startd.png",
 			"player.png",
 			"bg.png",
 			"stg3bg.png",
@@ -45,12 +41,7 @@ class Resource(object):
 		# 导入贴图并指定新代号, 预备后续处理
 		self.image["background"] = self.pic["background.png"]
 		self.image["loading"] = self.pic["loading.png"]
-		self.image["quitb"] = self.pic["quitb.png"]
-		self.image["quitd"] = self.pic["quitd.png"]
-		self.image["startb"] = self.pic["startb.png"]
-		self.image["startd"] = self.pic["startd.png"]
 		self.image["front00"] = self.pic["front00.png"]
-
 		self.image["bg"] = self.pic["bg.png"]
 		self.image["bg1"] = self.pic["stg3bg.png"]
 		self.image["bg2"] = self.pic["stg3bg2.png"]
@@ -66,6 +57,25 @@ class Resource(object):
 		self.pic["cirno.png"] = pygame.image.load("./Resources/pic/cirno.png").convert()
 		self.pic["cirno.png"].set_colorkey((0, 0, 0))
 		self.image["cirno"] = self.pic["cirno.png"].subsurface((0, 0, 128, 256))
+
+		# Title Resources
+		self.pic["title_buttons"] = pygame.image.load("./Resources/pic/New/title/title01.png")
+		self.image["Game_Startb"] = self.pic["title_buttons"].subsurface((0, 0, 160, 32))
+		self.image["Game_Startd"] = self.pic["title_buttons"].subsurface((160, 0, 160, 32))
+		self.image["Extra_Startb"] = self.pic["title_buttons"].subsurface((0, 32, 160, 32))
+		self.image["Extra_Startd"] = self.pic["title_buttons"].subsurface((160, 32, 160, 32))
+		self.image["Practise_Startb"] = self.pic["title_buttons"].subsurface((0, 64, 208, 32))
+		self.image["Practise_Startd"] = self.pic["title_buttons"].subsurface((208, 64, 208, 32))
+		self.image["Replayb"] = self.pic["title_buttons"].subsurface((0, 96, 96, 32))
+		self.image["Replayd"] = self.pic["title_buttons"].subsurface((96, 96, 96, 32))
+		self.image["Player_Datab"] = self.pic["title_buttons"].subsurface((0, 128, 180, 32))
+		self.image["Player_Datad"] = self.pic["title_buttons"].subsurface((180, 128, 180, 32))
+		self.image["Music_Roomb"] = self.pic["title_buttons"].subsurface((0, 160, 180, 32))
+		self.image["Music_Roomd"] = self.pic["title_buttons"].subsurface((180, 160, 180, 32))
+		self.image["Optionb"] = self.pic["title_buttons"].subsurface((0, 224, 108, 32))
+		self.image["Optiond"] = self.pic["title_buttons"].subsurface((108, 224, 108, 32))
+		self.image["Quitb"] = self.pic["title_buttons"].subsurface((0, 256, 80, 32))
+		self.image["Quitd"] = self.pic["title_buttons"].subsurface((80, 256, 80, 32))
 
 		# Bullets
 		tmp = Rect(0, 0, 16, 16)

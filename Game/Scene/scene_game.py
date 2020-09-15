@@ -24,7 +24,7 @@ class Scene_Game(object):
 		self.blmanager = bullet.BulletManager()					# 定义子弹管理器
 		self.anmanager = animation.AnimeManager()				# 定义动画管理器
 		self.enmanager = enemy.EnemyManager()					# 定义敌机管理器
-		self.txplayer= dialogue.TextPlayer()						# 定义对话播放器
+		self.txplayer= dialogue.TextPlayer()					# 定义对话播放器
 		self.score = 0							# 初始得点数为零
 		self.high_score = globe.high_score		# 传入累计最高点数
 		print(globe.high_score)					# Debug: 输出累计最高点数

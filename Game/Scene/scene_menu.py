@@ -3,13 +3,13 @@ import pygame
 from pygame.locals import *
 import sys
 import globe
-from Scene import scene_title
 from Scene import scene_menu_confirm
 from PIL import Image, ImageFilter
 
 # 定义了全局变量: globe.scene_menu_choose, 用于指示暂停菜单的首层选定状况
 # 定义了全局变量: globe.scene_menu_flag, 用于向第二层暂停菜单传递首层暂停菜单的选定项
 # 这两个全局变量只在 "scene_menu_confirm.py" 中被使用.
+
 
 class PauseMenu(object):
 	"""初始化菜单按钮, 设定菜单内容和淡出切换效果"""
@@ -19,7 +19,6 @@ class PauseMenu(object):
 		self.rs = globe.mgame.rsmanager.image		# rs = resource
 		self.pause_title = self.rs["menu_title"]
 		self.confirm_title = self.rs["confirm_title"]
-
 
 		# 一层菜单
 		self.button_rect.append([100, 220])			# 定位 'Resume_Start' 按键位置
@@ -82,11 +81,8 @@ class PauseMenu(object):
 				globe.scene_menu_flag = 2
 				globe.mgame.call(scene_menu_confirm.Scene_Menu_Confirm)
 
-
-
 	def draw(self, screen):
 		"""定义菜单绘制函数"""
-
 		# 绘制 Logo 和屏幕按键
 		screen.blit(self.pause_title, (160, 140))
 		for i in range(0, 3):  # 0, 1, 2
@@ -104,7 +100,7 @@ class Scene_Menu(object):
 		self.imgtmp = globe.mgame.screen.subsurface(Rect(31, 15, 386, 450)).copy()
 
 		# 使用 'PIL' 库模糊化游戏窗口
-		for i in range (0,3):
+		for i in range(0, 3):
 			# 转换 PyGame 图像至 PIL 图像
 			raw_str = pygame.image.tostring(self.imgtmp, "RGBA", False)
 			image = Image.frombytes("RGBA", self.imgtmp.get_size(), raw_str)

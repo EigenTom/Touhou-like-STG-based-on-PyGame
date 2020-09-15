@@ -4,7 +4,6 @@ from pygame.locals import *
 import sys
 import globe
 from Scene import scene_menu, scene_title
-from PIL import Image, ImageFilter
 
 
 class PauseMenu_Confirm(object):
@@ -94,9 +93,6 @@ class Scene_Menu_Confirm(object):
 
 	def draw(self, screen):
 		"""绘制背景"""
-
-
-		# screen.blit(globe.mgame.scene_menu.imtmp, (31, 16))
 		self.menu.draw(screen)
 
 	def start(self):

@@ -6,7 +6,6 @@ import cache				# 导入贴图缓存
 from Managers import music
 from Scene import scene_init
 
-global flag
 
 class Main_Window(object):
 	"""定义游戏窗口类"""
@@ -16,7 +15,7 @@ class Main_Window(object):
 		# pygame.display.set_icon("")
 		pygame.display.set_caption("迫真STG")
 		self.screen = pygame.display.set_mode([640, 480])
-		#self.screen = pygame.display.set_mode([640, 480], pygame.DOUBLEBUF | pygame.FULLSCREEN) 	# 全屏运行
+		# self.screen = pygame.display.set_mode([640, 480], pygame.DOUBLEBUF | pygame.FULLSCREEN) 	# 全屏运行
 		self.clock = pygame.time.Clock()
 		self.stack = []							# 定义界面栈, 防止scene函数重复调用
 		globe.high_score = 0
@@ -28,7 +27,7 @@ class Main_Window(object):
 		cache.cache_init()						# 初始化图像缓存
 		self.rsmanager = Managers.resource.Resource()		# 定位贴图资源管理器
 		self.msmanager = music.MusicManager()				# 定位音频管理器
-		self.myfont = pygame.font.SysFont("Heiti", 20)		# 定义用于显示帧速率的字体
+		self.myfont = pygame.font.SysFont("SimHei", 20)		# 定义用于显示帧速率的字体
 		self.goto(scene_init.Scene_Init)					# 切换至加载界面 'init', 开始游戏
 
 	def goto(self, scene):

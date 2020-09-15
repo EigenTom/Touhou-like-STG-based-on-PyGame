@@ -11,7 +11,8 @@ class TitleMenu(object):
 	def __init__(self):
 		"""初始化主页面及按键"""
 		self.button_rect = []  						# 获取按键的 'rect' 属性
-		self.logo = (pygame.image.load("./Resources/pic/New/title/title_logo.png").convert_alpha()).subsurface(0,128,324,80)
+		self.logo = (
+			pygame.image.load("./Resources/pic/New/title/title_logo.png").convert_alpha()).subsurface(0, 128, 324, 80)
 		self.rs = globe.mgame.rsmanager.image		# rs = resource
 
 		self.button_rect.append([400, 150])			# 定位 'Game_Start' 按键位置

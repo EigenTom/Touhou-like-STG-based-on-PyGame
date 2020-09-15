@@ -83,9 +83,12 @@ class Resource(object):
 		# 暂停菜单页面资源
 		self.pic["menu_buttons"] = pygame.image.load("./Resources/pic/New/ascii/pause.png")
 		self.image["menu_title"] = self.pic["menu_buttons"].subsurface((0, 0, 128, 32))
+		self.image["confirm_title"] = self.pic["menu_buttons"].subsurface((0, 224, 128, 32))
 		self.image["Resume_Start"] = self.pic["menu_buttons"].subsurface((0, 32, 256, 32))
 		self.image["To_Title_Start"] = self.pic["menu_buttons"].subsurface((0, 64, 256, 32))
 		self.image["Retry_Start"] = self.pic["menu_buttons"].subsurface((0, 96, 256, 32))
+		self.image["Yes"] = self.pic["menu_buttons"].subsurface((0, 192, 108, 32))
+		self.image["No"] = self.pic["menu_buttons"].subsurface((108, 192, 108, 32))
 
 		# Bullets Resources
 		# 子弹资源

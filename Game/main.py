@@ -6,6 +6,7 @@ import cache				# 导入贴图缓存
 from Managers import music
 from Scene import scene_init
 
+global flag
 
 class Main_Window(object):
 	"""定义游戏窗口类"""
@@ -35,7 +36,7 @@ class Main_Window(object):
 		self.scene = scene()
 		self.scene.update()
 
-	def call(self,scene):
+	def call(self, scene):
 		"""从当前界面切换到 'scene' """
 		self.scene.stop()
 		self.stack.append(self.scene)			# 新界面入栈

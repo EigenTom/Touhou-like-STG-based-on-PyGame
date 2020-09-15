@@ -19,7 +19,7 @@ class Player(object):
 		global canime  						# 全局变量: 自机动画
 		global cstatus  					# 全局变量: 自机状态
 		resource = globe.mgame.rsmanager
-		self.game_active_rect = globe.game_active_rect
+		self.game_active_rect = globe.game_active_rect		# 设定游戏活动区域
 		self.point = [224.0, 450.0]			# 初始化到屏幕底部中央
 		self.rect = Rect(0, 0, 10, 10)		# 获取自机图像矩形遮罩
 

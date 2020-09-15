@@ -59,7 +59,7 @@ class Main_Window(object):
 			fps_rect.bottomright = (640, 480)
 			self.screen.blit(fps_img, fps_rect)
 
-			pygame.display.flip()				# 翻转当前帧, 应用屏幕变动
+			pygame.display.flip()				# 刷新当前帧, 应用屏幕变动
 
 
 if __name__ == '__main__':

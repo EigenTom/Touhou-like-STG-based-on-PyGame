@@ -2,6 +2,7 @@
 import pygame
 from pygame.locals import *
 
+
 class Resource(object):
 	"""贴图资源管理器类, 维护全部的游戏贴图资源"""
 
@@ -59,6 +60,7 @@ class Resource(object):
 		self.image["cirno"] = self.pic["cirno.png"].subsurface((0, 0, 128, 256))
 
 		# Title Resources
+		# 主页面资源
 		self.pic["title_buttons"] = pygame.image.load("./Resources/pic/New/title/title01.png")
 		self.image["Game_Startb"] = self.pic["title_buttons"].subsurface((0, 0, 160, 32))
 		self.image["Game_Startd"] = self.pic["title_buttons"].subsurface((160, 0, 160, 32))
@@ -77,15 +79,16 @@ class Resource(object):
 		self.image["Quitb"] = self.pic["title_buttons"].subsurface((0, 256, 80, 32))
 		self.image["Quitd"] = self.pic["title_buttons"].subsurface((80, 256, 80, 32))
 
-		# Menu Buttons
+		# Menu Buttons Resources
+		# 暂停菜单页面资源
 		self.pic["menu_buttons"] = pygame.image.load("./Resources/pic/New/ascii/pause.png")
 		self.image["menu_title"] = self.pic["menu_buttons"].subsurface((0, 0, 128, 32))
 		self.image["Resume_Start"] = self.pic["menu_buttons"].subsurface((0, 32, 256, 32))
 		self.image["To_Title_Start"] = self.pic["menu_buttons"].subsurface((0, 64, 256, 32))
 		self.image["Retry_Start"] = self.pic["menu_buttons"].subsurface((0, 96, 256, 32))
 
-
-		# Bullets
+		# Bullets Resources
+		# 子弹资源
 		tmp = Rect(0, 0, 16, 16)
 		tp = self.pic["bullet1.png"]
 		self.image["bullet1"] = []
@@ -121,6 +124,7 @@ class Resource(object):
 			tmp.left += 64
 
 		# Resources
+		# 掉点资源
 		tmp = Rect(0, 0, 32, 32)
 		tp = self.pic["resource.png"]
 		self.image["resource"] = []
@@ -142,6 +146,7 @@ class Resource(object):
 			tmp.left += tmpw
 
 		# Boss
+		# Boss资源
 		self.anime["cirno"] = [[], [], []] 			#stay left right
 		tp = self.pic["cirno-fly.png"]
 		tmp = tp.get_rect()
@@ -166,6 +171,7 @@ class Resource(object):
 			tmp.left += tmpw
 
 		# Enemies
+		# 敌机 (Fairies) 资源
 		tmp = Rect(0, 0, 32, 32)
 		tp = self.pic["enemy.png"]
 		self.anime["enemy"] = []
@@ -211,6 +217,7 @@ class Resource(object):
 			tmp.top += 32
 
 		# Player
+		# 自机资源
 		tmp = Rect(0, 0, 32, 48)
 		tp = self.pic["player.png"]
 		self.anime["player"] = [[], [], []] 			#stay left right point tama bullet1 bullet2
@@ -229,9 +236,8 @@ class Resource(object):
 		tmp = Rect(64, 176, 64, 16)
 		self.anime["player"].append(tp.subsurface(tmp))
 
-
-
-
+		# Audio Effect Resources
+		# 音频资源
 		self.se = {}
 		se_name = [
 			"se_bonus.wav",

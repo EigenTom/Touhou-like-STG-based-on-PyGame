@@ -3,11 +3,8 @@ import pygame
 from pygame.locals import *
 import sys
 import globe
-from Scene import scene_loading
 from Scene import scene_title
 from PIL import Image, ImageFilter
-
-
 
 
 class PauseMenu(object):
@@ -18,19 +15,18 @@ class PauseMenu(object):
 		self.pause_logo = (pygame.image.load("./Resources/pic/New/ascii/pause.png").convert_alpha()).subsurface(0,0,128,32)
 		self.rs = globe.mgame.rsmanager.image		# rs = resource
 
-		self.button_rect.append([100, 220])			# 定位 'Game_Start' 按键位置
-		self.button_rect.append([100, 260])			# 定位 'Extra_Start' 按键位置
-		self.button_rect.append([90, 300])			# 定位 'Practice Start' 按键位置
+		self.button_rect.append([100, 220])			# 定位 'Resume_Start' 按键位置
+		self.button_rect.append([100, 260])			# 定位 'To_Title_Start' 按键位置
+		self.button_rect.append([90, 300])			# 定位 'Retry_Start' 按键位置
 
 		self.image = []				# 定义按键贴图, 以列表形式存储
 		self.image.append(self.rs["Resume_Start"])			# 0
-		self.image.append(self.rs["To_Title_Start"])			# 1
+		self.image.append(self.rs["To_Title_Start"])		# 1
 		self.image.append(self.rs["Retry_Start"])			# 2
 
 		self.index = 0				# 初始化高亮按键: 默认为 'Resume_Start'
 		self.choose = False			# 初始化按键选定状态
-		self.flash = 0				# 初始化按键闪烁帧
-		self.count = 0
+		self.count = 0				# 图像模糊处理循环标记符, 初始化为 0
 
 	def event_control(self):
 		"""事件控制函数"""
@@ -61,18 +57,16 @@ class PauseMenu(object):
 					if event.key == K_ESCAPE:
 						globe.mgame.back()
 		else:				# 检测进行按键选择后的状态
-			self.flash += 1
-			if self.flash >= 20:				# 按键闪烁 20 下后进行页面切换
-				if self.index == 0:
-					if self.flash >= 40:		# 按键闪烁 40 下后进行页面切换
-						# 返回游戏
-						globe.mgame.back()
-				if self.index == 1:
-					globe.mgame.call(scene_title.Scene_Title)
-				if self.index == 2:
-					globe.scgame.__init__()
-					globe.scgame.update()
-					globe.mgame.back()
+			if self.index == 0:
+				# 返回游戏
+				globe.mgame.back()
+			if self.index == 1:
+				globe.mgame.call(scene_title.Scene_Title)
+			if self.index == 2:
+				globe.scgame.__init__()
+				globe.scgame.update()
+				globe.mgame.back()
+
 
 
 
@@ -87,16 +81,14 @@ class PauseMenu(object):
 
 
 class Scene_Menu(object):
-	"""定义主页面类"""
+	"""定义暂停菜单页面类"""
 	def __init__(self):
-		"""初始化主页面"""
+		"""初始化暂停菜单页面"""
 		self.rs = globe.mgame.rsmanager
 		self.menu = PauseMenu()
 		self.count = 0
 		self.fade = pygame.Surface(globe.mgame.screen.get_size())
 		self.imtmp = globe.mgame.screen.subsurface(Rect(31, 15, 386, 450)).copy()
-
-
 
 	def update(self):
 		"""主页面屏幕更新函数"""
@@ -105,14 +97,14 @@ class Scene_Menu(object):
 	def draw(self, screen):
 		"""绘制背景"""
 
-
+		# 使用 'PIL' 库模糊化游戏窗口
 		if self.count <= 3:
 			# imtmp = globe.mgame.screen.subsurface(globe.game_active_rect).copy()
-			# 转换pygame 图像至 pil
+			# 转换 PyGame 图像至 PIL 图像
 			raw_str = pygame.image.tostring(self.imtmp, "RGBA", False)
 			image = Image.frombytes("RGBA", self.imtmp.get_size(), raw_str)
 			imblur = image.filter(ImageFilter.BLUR)
-
+			# 转换 PIL 图像至 PyGame 图像
 			raw_str = imblur.tobytes("raw", "RGBA")
 			imblur_pygame = pygame.image.fromstring(raw_str, imblur.size, "RGBA")
 			self.imtmp = imblur_pygame

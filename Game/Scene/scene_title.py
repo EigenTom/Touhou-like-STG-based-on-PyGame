@@ -43,7 +43,6 @@ class TitleMenu(object):
 
 		self.index = 0				# 初始化高亮按键: 默认为 'Start'
 		self.choose = False			# 初始化按键选定状态
-
 		self.flash = 0				# 初始化按键闪烁帧
 
 		# 设定页面切换效果: 淡出
@@ -121,6 +120,7 @@ class TitleMenu(object):
 
 class Scene_Title(object):
 	"""定义主页面类"""
+	# 去尼玛的驼峰命名法
 	def __init__(self):
 		"""初始化主页面"""
 		self.rs = globe.mgame.rsmanager
@@ -139,6 +139,6 @@ class Scene_Title(object):
 
 		# 淡入效果
 		if self.count <= 40:
-			self.fade.set_alpha((255 - (self.count) * 12))  # 对黑色遮罩进行透明化
+			self.fade.set_alpha((255 - self.count * 12))  # 对黑色遮罩进行透明化
 			screen.blit(self.fade, (0, 0))
 			self.count += 1

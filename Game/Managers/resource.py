@@ -77,6 +77,14 @@ class Resource(object):
 		self.image["Quitb"] = self.pic["title_buttons"].subsurface((0, 256, 80, 32))
 		self.image["Quitd"] = self.pic["title_buttons"].subsurface((80, 256, 80, 32))
 
+		# Menu Buttons
+		self.pic["menu_buttons"] = pygame.image.load("./Resources/pic/New/ascii/pause.png")
+		self.image["menu_title"] = self.pic["menu_buttons"].subsurface((0, 0, 128, 32))
+		self.image["Resume_Start"] = self.pic["menu_buttons"].subsurface((0, 32, 256, 32))
+		self.image["To_Title_Start"] = self.pic["menu_buttons"].subsurface((0, 64, 256, 32))
+		self.image["Retry_Start"] = self.pic["menu_buttons"].subsurface((0, 96, 256, 32))
+
+
 		# Bullets
 		tmp = Rect(0, 0, 16, 16)
 		tp = self.pic["bullet1.png"]

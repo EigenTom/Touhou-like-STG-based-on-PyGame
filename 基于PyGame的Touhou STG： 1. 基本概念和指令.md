@@ -186,6 +186,24 @@
 
 <br>
 
+* 高级图像处理
+  `PyGame` 支持一些基本的图像处理操作, 例如旋转, 调整透明度, 水平/竖直翻转等. 然而, `PyGame` 并没有内置反色, 高斯模糊等图形处理功能. 若要实现这些功能, 我们可以选择自行编写相应的自定义函数, 或者选择更加简便高效的方法: 调用 `PIL` 库. <br>
+  `PIL` 库是PythonWare公司提供的免费的图像处理工具包. 它提供了基本的图像处理功能，如图像格式转换，色场空间转换，图像增强，直方图处理，插值和滤波等等。<br>
+  通过 `PyGame` 导入的图像文件和 `PIL` 库定义的图像文件不通用, 若想进行跨库的图像操作则必须先将图像格式进行转换. 转换语法如下: 
+
+  ```
+      # 假设 `self.imgtmp` 为一张通过 PyGame 内置方法导入的图片
+      # 本代码段的目的是, 将 `self.imgtmp` 使用 PIL 内置的 ImageFilter.BLUR 方法进行高斯模糊处理
+      # 转换 PyGame 图像至 PIL 图像
+      raw_str = pygame.image.tostring(self.imgtmp, "RGBA", False)
+			image = Image.frombytes("RGBA", self.imgtmp.get_size(), raw_str)
+			imgblur = image.filter(ImageFilter.BLUR)
+			# 转换 PIL 图像至 PyGame 图像
+			raw_str = imgblur.tobytes("raw", "RGBA")
+			imgblur_pygame = pygame.image.fromstring(raw_str, imgblur.size, "RGBA")
+			self.imgtmp = imgblur_pygame  
+  ```
+  
 ## 3. 模块化程序设计和资源管理思想
 
 * 模块化程序设计 <br>

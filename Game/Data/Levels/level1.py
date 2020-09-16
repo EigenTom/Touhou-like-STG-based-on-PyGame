@@ -255,7 +255,7 @@ def init():
 	lentype["eb1NSC"]=globe.entype["cirno"].copy()
 	lentype["eb1NSC"].bump=True
 	lentype["eb1NSC"].fbuff=create_no
-	lentype["eb1NSC"].maxhealth=560000 #!!!!!!!!!!!!
+	lentype["eb1NSC"].maxhealth=560000
 
 	lentype["eb1SC"]=globe.entype["cirno"].copy()
 	lentype["eb1SC"].bump=True

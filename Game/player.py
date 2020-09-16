@@ -42,7 +42,7 @@ class Player(object):
 		self.aindex = 0						# 自机动画的当前播放帧, 初始化为0
 
 		self.power = 200					# 初始化自机能量值
-		self.life = 0# 8						# 初始化自机命数
+		self.life = 8						# 初始化自机命数
 		self.frame = 0						# 初始化帧数计数器
 		self.tcount = 0						# 初始化计时器
 

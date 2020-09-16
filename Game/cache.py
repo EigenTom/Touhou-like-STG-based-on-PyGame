@@ -79,7 +79,7 @@ def cache_buffer(img):
 	if (img in image):
 		return
 	else:
-		image[img] = [{}, {}, None]  #第一个是rotate，第二个是transparent，第三个水平翻转
+		image[img] = [{}, {}, None]  # 第一个是rotate，第二个是transparent，第三个水平翻转
 
 
 def cache_set_mask(img, color, flag=False):

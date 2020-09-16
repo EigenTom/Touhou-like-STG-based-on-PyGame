@@ -8,6 +8,7 @@ import globe
 from Scene import scene_title, scene_loading
 from PIL import Image, ImageFilter
 
+
 class PauseMenu(object):
 	"""初始化菜单按钮, 设定菜单内容和淡出切换效果"""
 	def __init__(self):
@@ -68,10 +69,10 @@ class PauseMenu(object):
 		for i in range(0, 2):  # 0, 1, 2
 			screen.blit(self.image[i], self.button_rect[i])
 
+
 class Scene_GameOver(object):
 
 	def __init__(self):
-		globe.mgame.msmanager.pause
 		self.rs = globe.mgame.rsmanager.image  # rs = resource
 		self.myfont = pygame.font.SysFont(None, 60)
 		self.menu = PauseMenu()

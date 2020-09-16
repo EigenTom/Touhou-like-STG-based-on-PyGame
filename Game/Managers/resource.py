@@ -48,7 +48,7 @@ class Resource(object):
 		self.image["bg2"] = self.pic["stg3bg2.png"]
 		self.image["bg3"] = self.pic["stg3bg3.png"]
 		self.image["bg4"] = self.pic["stg3bg4.png"]
-		#self.image["bg5"]=self.pic["eff02.png"]
+		# self.image["bg5"]=self.pic["eff02.png"]
 		self.image["bg5"] = pygame.image.load("./Resources/pic/eff02.png").convert()
 
 		self.pic["reimu.png"] = pygame.image.load("./Resources/Pic/reimu.png").convert()
@@ -90,7 +90,7 @@ class Resource(object):
 		self.image["Yes"] = self.pic["menu_buttons"].subsurface((0, 192, 108, 32))
 		self.image["No"] = self.pic["menu_buttons"].subsurface((108, 192, 108, 32))
 		self.image["Dead"] = self.pic["menu_buttons"].subsurface((0, 128, 128, 32))
-		self.image["Clear"] = self.pic["menu_buttons"].subsurface((0, 224, 128, 32))
+		self.image["Clear"] = self.pic["menu_buttons"].subsurface((128, 224, 128, 32))
 
 		# Bullets Resources
 		# 子弹资源
@@ -109,7 +109,7 @@ class Resource(object):
 		for i in range(16):
 			self.image["bullet1"][12].append(tp.subsurface(tmp))
 			tmp.left += 8
-			if i==7:
+			if i == 7:
 				tmp = Rect(0, 248, 8, 8)
 
 		tmp = Rect(0, 0, 32, 32)
@@ -152,7 +152,7 @@ class Resource(object):
 
 		# Boss
 		# Boss资源
-		self.anime["cirno"] = [[], [], []] 			#stay left right
+		self.anime["cirno"] = [[], [], []] 			# stay left right
 		tp = self.pic["cirno-fly.png"]
 		tmp = tp.get_rect()
 		tmp.width /= 4
@@ -225,7 +225,7 @@ class Resource(object):
 		# 自机资源
 		tmp = Rect(0, 0, 32, 48)
 		tp = self.pic["player.png"]
-		self.anime["player"] = [[], [], []] 			#stay left right point tama bullet1 bullet2
+		self.anime["player"] = [[], [], []] 			# stay left right point tama bullet1 bullet2
 		for i in range(3):
 			for j in range(8):
 				self.anime["player"][i].append(tp.subsurface(tmp))

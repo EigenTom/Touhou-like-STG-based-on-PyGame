@@ -3,9 +3,7 @@ import pygame
 from pygame.locals import *
 from Scene import scene_menu
 import globe
-
-
-global globaltext
+import sys
 
 global globaltext
 
@@ -34,7 +32,7 @@ class TextPlayer(object):
 		self.rpic = globe.mgame.rsmanager.image["reimu"]
 		self.lpic_av = False
 		self.rpic_av = False
-		self.font = pygame.font.SysFont(None, 20)
+		self.font = pygame.font.SysFont("SimHei", 20)
 		self.rc = pygame.Rect(
 			globe.game_active_rect.left, globe.game_active_rect.bottom-100, globe.game_active_rect.width-128, 100)
 
@@ -77,7 +75,7 @@ class TextPlayer(object):
 				screen.fill((200, 200, 200), self.rc, BLEND_RGB_ADD)
 				if type(self.texts[self.index]) == str:
 					txtimg = self.font.render(self.texts[self.index], True, (255, 0, 0))
-					screen.blit(txtimg,self.rc.topleft)
+					screen.blit(txtimg, self.rc.topleft)
 				elif type(self.texts[self.index]) == list:
 					for i in range(len(self.texts[self.index])):
 						txtimg = self.font.render(self.texts[self.index][i], True, (255, 0, 0))
@@ -98,7 +96,7 @@ class TextPlayer(object):
 
 				if type(self.texts[self.index]) == str:
 					txtimg = self.font.render(self.texts[self.index], True, (255, 0, 0))
-					screen.blit(txtimg,tp.topleft)
+					screen.blit(txtimg, tp.topleft)
 				elif type(self.texts[self.index]) == list:
 					for i in range(len(self.texts[self.index])):
 						txtimg = self.font.render(self.texts[self.index][i], True, (255, 0, 0))

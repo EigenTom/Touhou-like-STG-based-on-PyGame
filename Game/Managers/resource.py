@@ -89,6 +89,8 @@ class Resource(object):
 		self.image["Retry_Start"] = self.pic["menu_buttons"].subsurface((0, 96, 256, 32))
 		self.image["Yes"] = self.pic["menu_buttons"].subsurface((0, 192, 108, 32))
 		self.image["No"] = self.pic["menu_buttons"].subsurface((108, 192, 108, 32))
+		self.image["Dead"] = self.pic["menu_buttons"].subsurface((0, 128, 128, 32))
+		self.image["Clear"] = self.pic["menu_buttons"].subsurface((0, 224, 128, 32))
 
 		# Bullets Resources
 		# 子弹资源

@@ -187,7 +187,7 @@
       <option name="presentableId" value="Default" />
       <updated>1600071559856</updated>
       <workItem from="1600071560874" duration="8578000" />
-      <workItem from="1600129680203" duration="29885000" />
+      <workItem from="1600129680203" duration="32431000" />
     </task>
     <servers />
   </component>
@@ -203,33 +203,33 @@
       <screen x="0" y="0" width="1707" height="960" />
     </state>
     <state x="634" y="219" key="FileChooserDialogImpl/0.0.1707.960@0.0.1707.960" timestamp="1600083141326" />
-    <state width="1663" height="120" key="GridCell.Tab.0.bottom" timestamp="1600181300075">
+    <state width="1663" height="120" key="GridCell.Tab.0.bottom" timestamp="1600299073308">
       <screen x="0" y="0" width="1707" height="960" />
     </state>
-    <state width="1663" height="120" key="GridCell.Tab.0.bottom/0.0.1707.960@0.0.1707.960" timestamp="1600181300075" />
-    <state width="1663" height="120" key="GridCell.Tab.0.center" timestamp="1600181300075">
+    <state width="1663" height="120" key="GridCell.Tab.0.bottom/0.0.1707.960@0.0.1707.960" timestamp="1600299073308" />
+    <state width="1663" height="120" key="GridCell.Tab.0.center" timestamp="1600299073307">
       <screen x="0" y="0" width="1707" height="960" />
     </state>
-    <state width="1663" height="120" key="GridCell.Tab.0.center/0.0.1707.960@0.0.1707.960" timestamp="1600181300075" />
-    <state width="1663" height="120" key="GridCell.Tab.0.left" timestamp="1600181300075">
+    <state width="1663" height="120" key="GridCell.Tab.0.center/0.0.1707.960@0.0.1707.960" timestamp="1600299073307" />
+    <state width="1663" height="120" key="GridCell.Tab.0.left" timestamp="1600299073307">
       <screen x="0" y="0" width="1707" height="960" />
     </state>
-    <state width="1663" height="120" key="GridCell.Tab.0.left/0.0.1707.960@0.0.1707.960" timestamp="1600181300075" />
-    <state width="1663" height="120" key="GridCell.Tab.0.right" timestamp="1600181300075">
+    <state width="1663" height="120" key="GridCell.Tab.0.left/0.0.1707.960@0.0.1707.960" timestamp="1600299073307" />
+    <state width="1663" height="120" key="GridCell.Tab.0.right" timestamp="1600299073308">
       <screen x="0" y="0" width="1707" height="960" />
     </state>
-    <state width="1663" height="120" key="GridCell.Tab.0.right/0.0.1707.960@0.0.1707.960" timestamp="1600181300075" />
+    <state width="1663" height="120" key="GridCell.Tab.0.right/0.0.1707.960@0.0.1707.960" timestamp="1600299073308" />
     <state x="355" y="123" key="SettingsEditor" timestamp="1600083194280">
       <screen x="0" y="0" width="1707" height="960" />
     </state>
     <state x="355" y="123" key="SettingsEditor/0.0.1707.960@0.0.1707.960" timestamp="1600083194280" />
-    <state x="516" y="205" width="672" height="678" key="search.everywhere.popup" timestamp="1600138142048">
+    <state x="516" y="205" width="672" height="678" key="search.everywhere.popup" timestamp="1600298322296">
       <screen x="0" y="0" width="1707" height="960" />
     </state>
-    <state x="516" y="205" width="672" height="678" key="search.everywhere.popup/0.0.1707.960@0.0.1707.960" timestamp="1600138142048" />
+    <state x="516" y="205" width="672" height="678" key="search.everywhere.popup/0.0.1707.960@0.0.1707.960" timestamp="1600298322296" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/Touhou_like_STG_based_on_PyGame$main.coverage" NAME="main Coverage Results" MODIFIED="1600181300067" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Game" />
+    <SUITE FILE_PATH="coverage/Touhou_like_STG_based_on_PyGame$main.coverage" NAME="main Coverage Results" MODIFIED="1600299073297" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Game" />
     <SUITE FILE_PATH="coverage/Touhou_like_STG_based_on_PyGame$scene_loading.coverage" NAME="scene_loading Coverage Results" MODIFIED="1600133689931" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Game/Scene" />
     <SUITE FILE_PATH="coverage/Touhou_like_STG_based_on_PyGame$scene_init.coverage" NAME="scene_init Coverage Results" MODIFIED="1600080846107" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Game/Scene" />
     <SUITE FILE_PATH="coverage/Touhou_like_STG_based_on_PyGame$scene_init__1_.coverage" NAME="scene_init Coverage Results" MODIFIED="1600083401755" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Game/Scene" />

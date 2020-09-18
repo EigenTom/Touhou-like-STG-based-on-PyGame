@@ -14,8 +14,8 @@ class Main_Window(object):
 		"""定义部分静态窗口属性"""
 		# pygame.display.set_icon("")
 		pygame.display.set_caption("迫真STG")
-		self.screen = pygame.display.set_mode([640, 480])
-		# self.screen = pygame.display.set_mode([640, 480], pygame.DOUBLEBUF | pygame.FULLSCREEN) 	# 全屏运行
+		# self.screen = pygame.display.set_mode([640, 480])
+		self.screen = pygame.display.set_mode([640, 480], pygame.DOUBLEBUF | pygame.NOFRAME)#pygame.FULLSCREEN) 	# 全屏运行
 		self.clock = pygame.time.Clock()
 		self.stack = []							# 定义界面栈, 防止scene函数重复调用
 		globe.high_score = 0

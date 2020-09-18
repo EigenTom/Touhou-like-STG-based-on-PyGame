@@ -37,7 +37,7 @@ class Player(object):
 		canime["stay"] = resource.anime["player"][0]
 		canime["toleft"] = resource.anime["player"][1]
 		canime["toright"] = resource.anime["player"][2]
-		canime["panding"] = resource.anime["player"][3]
+		canime["focus"] = resource.anime["player"][3]
 		self.anime = canime["stay"]			# 自机动画, 初始化为 'stay' 类型
 		self.aindex = 0						# 自机动画的当前播放帧, 初始化为0
 
@@ -62,7 +62,7 @@ class Player(object):
 					bl.create_plbl(tm.rect[i].center, 1)
 					bl.create_plbl(tm.rect[i].center, 2)
 
-	def throwbomb(self):
+	def firebomb(self):
 		"""定义Bomb行为, 维护Bomb设定"""
 		if (self.power >= 100 and self.status != cstatus["sc"]) and (
 				self.status != cstatus["scwudi"]) and (not globe.scgame.timestop):
@@ -73,6 +73,7 @@ class Player(object):
 	def miss(self):
 		"""定义自机中弹行为, 维护中弹行为"""
 		if self.status == cstatus["hit"]:
+			# 生成三个P点
 			globe.scgame.anmanager.create_anime(resource.anime["bubble"], self.rect.topleft, 5)
 			globe.scgame.blmanager.clear_enbl()
 			rc = self.rect.copy()
@@ -84,15 +85,16 @@ class Player(object):
 			globe.scgame.itmanager.create(item.LPowerItem, rc.topright)
 
 			self.status = cstatus["crash"]
-			self.tmppd = [0, 0]
-			self.tmppd[0] = self.point[0]
-			self.tmppd[1] = self.point[1]
+			# 设判定点位置为自机撞弹时所处位置
+			self.tmpfc = [self.point[0], self.point[1]]				# tmpfc = tmp_focus
+			
+			# 重定位自机至屏幕底部中央
 			self.rect.midtop = self.game_active_rect.midbottom
-			self.point[0] = self.rect.centerx
+			self.point[0] = self.rect.centerx		
 			self.point[1] = self.rect.centery
-			self.tcount = 0
-			self.life -= 1
-			self.power -= 200
+			self.tcount = 0				# 重置计时器
+			self.life -= 1				# 残机 -1
+			self.power -= 200			# Power -200
 			if self.power <= 0:
 				self.power = 0
 
@@ -102,7 +104,7 @@ class Player(object):
 		if keys[pygame.K_z]:
 			self.fire()
 		if keys[pygame.K_x]:
-			self.throwbomb()
+			self.firebomb()
 		if keys[pygame.K_LSHIFT]:
 			self.speed = 1.5
 		else:
@@ -170,7 +172,7 @@ class Player(object):
 		"""定义撞弹后动作"""
 		if self.status == cstatus["normal"]:
 			globe.mgame.msmanager.play_SE("miss")
-			self.tcount = 0
+			self.tcount = 0		# 重置记时器
 			self.status = cstatus["hit"]
 
 	def update(self):
@@ -223,17 +225,18 @@ class Player(object):
 
 		if self.status != cstatus["normal"] and self.status != cstatus["hit"]:
 			tmp = cache.cache_set_alpha(self.anime[self.aindex], (int(self.frame % 15)*60/15+100), True)
-			tmp = cache.cache_set_mask(tmp, (100, 0, 100, 40), True)
+			# tmp = cache.cache_set_mask(tmp, (100, 0, 100, 40), True)
 			screen.blit(tmp, self.rect)
 		else:
 			screen.blit(self.anime[self.aindex], self.rect)
 
-		tmp = cache.cache_rotate(canime["panding"], self.frame, True)
+		tmp = cache.cache_rotate(canime["focus"], self.frame, True)
 		if self.keys[pygame.K_LSHIFT]:	
 			if self.status != cstatus["crash"]:
 				tprect = tmp.get_rect()
 				tprect.center = self.rect.center
 				screen.blit(tmp, tprect)
 		if self.status == cstatus["crash"]:
-			tmp.get_rect().center = self.tmppd
-			screen.blit(tmp, tmp.get_rect())
+			tprect = tmp.get_rect()
+			tprect.center = self.tmpfc
+			screen.blit(tmp, tprect)

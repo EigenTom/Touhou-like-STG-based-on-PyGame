@@ -25,10 +25,10 @@ class Player(object):
 
 		cstatus = {}
 		cstatus["normal"] = 0
-		cstatus["wudi"] = 1
+		cstatus["invincible"] = 1
 		cstatus["crash"] = 2
 		cstatus["sc"] = 3
-		cstatus["scwudi"] = 4
+		cstatus["scinvincible"] = 4
 		cstatus["hit"] = 5
 		self.status = cstatus["normal"]
 		globe.cstatus = cstatus
@@ -65,10 +65,10 @@ class Player(object):
 	def firebomb(self):
 		"""定义Bomb行为, 维护Bomb设定"""
 		if (self.power >= 100 and self.status != cstatus["sc"]) and (
-				self.status != cstatus["scwudi"]) and (not globe.scgame.timestop):
+				self.status != cstatus["scinvincible"]) and (not globe.scgame.timestop):
 			self.power -= 100
 			self.status = cstatus["sc"]
-			globe.mgame.msmanager.play_SE("wudi")
+			globe.mgame.msmanager.play_SE("invincible")
 
 	def miss(self):
 		"""定义自机中弹行为, 维护中弹行为"""
@@ -197,10 +197,10 @@ class Player(object):
 			if self.tcount <= 60:
 				self.point[1] -= 1
 			else:
-				self.status = cstatus["wudi"]
+				self.status = cstatus["invincible"]
 				self.tcount = 0
 
-		if self.status == cstatus["wudi"]:
+		if self.status == cstatus["invincible"]:
 			self.tcount += 1
 			if self.tcount > 300:
 				self.status = cstatus["normal"]
@@ -208,10 +208,10 @@ class Player(object):
 		elif self.status == cstatus["sc"]:
 			self.tcount += 1
 			if self.tcount > 360:
-				self.status = cstatus["scwudi"]
+				self.status = cstatus["scinvincible"]
 				globe.scgame.blmanager.clear_enbl()
 				self.tcount = 0
-		elif self.status == cstatus["scwudi"]:
+		elif self.status == cstatus["scinvincible"]:
 			self.tcount += 1
 			if self.tcount > 180:
 				self.status = cstatus["normal"]

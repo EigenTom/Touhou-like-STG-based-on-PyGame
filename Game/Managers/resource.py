@@ -262,7 +262,7 @@ class Resource(object):
 			"bonus",
 			"cardget",
 			"connect",
-			"wudi",
+			"invincible",
 			"select",
 			"miss",
 			"cancel",

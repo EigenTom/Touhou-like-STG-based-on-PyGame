@@ -1,7 +1,7 @@
 #  页面, 功能和关卡设计:
 
    * 设计游戏界面 `Scene`, 基于进出栈思想实现无需函数嵌套的界面平级切换;
-   * 设计自机, 敌机和 `Boss` 类, 实现完美碰撞检测;
+   * 设计自机, 敌机和 `Boss` 类, 实现完美碰撞检测 (以自机类为例);
    * 设计子弹类 `Bullet` 和轨迹类 `Orbit`;
    * 设计并搭建示例关卡.
 
@@ -208,3 +208,290 @@
 
 ## 2. 设计自机, 敌机和 `Boss` 类
 
+
+  自机, 敌机和 Boss 是游戏中玩家直接操控或互动的对象. 它们的形象 (贴图, 动画), 位置, 血量 (点数, 能量值), 状态 (正常, 中弹, ...) 和行为会动态变化, 相关的变量和控制这些变量变化的方法都应该在对应的类中妥善定义. 
+
+* 自机类<br>
+  对于自机, 我们首先明确, 它具有 `正常`, `正常下放B`, `中弹`, `中弹后`, `中弹后放B`, `坠机(残机为0)` 六种不同状态, 并且它的移动轨迹需要玩家通过方向键控制. 我们将自机类分为三个部分: 贴图/动画定义, 状态定义和行为控制.<br>  
+
+  * 动画定义<br>
+  首先, 我们对自机动画进行定义. 自机不同状态下的动画已经预先被导入至贴图资源管理器中, 我们只需要将其简单导入列表按照顺序储存即可:
+      ```
+      class Player(object):
+         """定义自机类: 点数, 能量值, 状态, 运动, 动画, 帧刷新"""
+
+         def __init__(self):
+            global resource						# 全局变量: 资源管理器
+            global canime  						# 全局变量: 自机动画
+            global cstatus  					# 全局变量: 自机状态
+            resource = globe.mgame.rsmanager
+            self.game_active_rect = globe.game_active_rect		# 设定游戏活动区域
+            self.point = [224.0, 450.0]			# 初始化到屏幕底部中央
+            self.rect = Rect(0, 0, 10, 10)		# 获取自机图像矩形遮罩
+
+         ---snip---
+
+         canime = {}
+            canime["stay"] = resource.anime["player"][0]
+            canime["toleft"] = resource.anime["player"][1]
+            canime["toright"] = resource.anime["player"][2]
+            canime["focus"] = resource.anime["player"][3]
+            self.anime = canime["stay"]			# 自机动画, 初始化为 'stay' 类型
+            self.aindex = 0						# 自机动画的当前播放帧, 初始化为0
+      ```
+
+   <br>
+
+   * 状态定义<br>
+
+         其次, 我们对自机的六种不同状态分别进行定义: 
+
+         ```
+            def __init__(self):
+
+            ---snip---
+
+            cstatus = {}
+            cstatus["normal"] = 0
+            cstatus["invincible"] = 1
+            cstatus["crash"] = 2
+            cstatus["sc"] = 3
+            cstatus["scinvincible"] = 4
+            cstatus["hit"] = 5
+            self.status = cstatus["normal"]
+            globe.cstatus = cstatus
+
+            ---snip---
+
+
+         ```
+
+         在行为控制部分中, 我们将定义自机的各种可能行为, 并依据自机状态的不同进行特定化的行为控制.  
+
+   <br>
+
+   * 行为控制<br>
+     行为控制部分细分为动作行为控制和位置行为控制. 开火, 放B等行为均可归类为动作行为, 而位置行为控制顾名思义, 即控制自机移动, 限制移动范围和后期实现顶上收点, 穿墙, 低速 (Focus) 模式等的分区. 
+
+      ```
+      def fire(self):
+         """定义开火动作, 维护子弹数量与频率, 自机子弹类"""
+         if not globe.scgame.timestop:
+            tm = globe.scgame.tmmanager
+            bl = globe.scgame.blmanager
+            if (self.frame % 5 == 0):
+               bl.create_plbl(self.rect.inflate(-12, -8).topleft, 0)
+               bl.create_plbl(self.rect.inflate(-12, -8).topright, 0)
+            tp = self.power/100
+            if tp >= 5:
+               tp = 4
+            for i in range(int(tp)):
+               if (self.frame % 6 == 0):
+                  bl.create_plbl(tm.rect[i].center, 1)
+                  bl.create_plbl(tm.rect[i].center, 2)
+
+      def firebomb(self):
+         """定义Bomb行为, 维护Bomb设定"""
+         if (self.power >= 100 and self.status != cstatus["sc"]) and (
+               self.status != cstatus["scinvincible"]) and (not globe.scgame.timestop):
+            self.power -= 100
+            self.status = cstatus["sc"]
+            globe.mgame.msmanager.play_SE("invincible")
+
+      def miss(self):
+         """定义自机中弹行为, 维护中弹行为"""
+         if self.status == cstatus["hit"]:
+            # 生成三个P点
+            globe.scgame.anmanager.create_anime(resource.anime["bubble"], self.rect.topleft, 5)
+            globe.scgame.blmanager.clear_enbl()
+            rc = self.rect.copy()
+            rc.left -= 20
+            globe.scgame.itmanager.create(item.LPowerItem, rc.topleft)
+            rc.left += 20
+            globe.scgame.itmanager.create(item.LPowerItem, rc.midtop)
+            rc.left += 20
+            globe.scgame.itmanager.create(item.LPowerItem, rc.topright)
+
+            self.status = cstatus["crash"]
+            # 设判定点位置为自机撞弹时所处位置
+            self.tmpfc = [self.point[0], self.point[1]]				# tmpfc = tmp_focus
+            
+            # 重定位自机至屏幕底部中央
+            self.rect.midtop = self.game_active_rect.midbottom
+            self.point[0] = self.rect.centerx		
+            self.point[1] = self.rect.centery
+            self.tcount = 0				# 重置计时器
+            self.life -= 1				# 残机 -1
+            self.power -= 200			# Power -200
+            if self.power <= 0:
+               self.power = 0
+
+      def move(self):
+         """定义和控制自机移动行为, 维护移动检测函数, 高速/低速模式切换, 穿墙功能和顶上收点机能"""
+         keys = self.keys
+         if keys[pygame.K_z]:
+            self.fire()
+         if keys[pygame.K_x]:
+            self.firebomb()
+         if keys[pygame.K_LSHIFT]:
+            self.speed = 1.5
+         else:
+            self.speed = 8
+         if (keys[pygame.K_DOWN] or keys[pygame.K_UP]) and (keys[pygame.K_RIGHT] or keys[pygame.K_LEFT]):
+            self.speed /= sqrt(2)
+         if keys[pygame.K_DOWN]:
+            self.point[1] += self.speed
+         if keys[pygame.K_UP]:
+            self.point[1] -= self.speed
+         if keys[pygame.K_RIGHT] and keys[pygame.K_LEFT]:
+            if self.anime != canime["stay"]:
+               self.anime = canime["stay"]
+               self.aindex = 0
+         elif keys[pygame.K_RIGHT]:
+            if self.anime != canime["toright"]:
+               self.anime = canime["toright"]
+               self.aindex = 0
+            self.point[0] += self.speed
+         elif keys[pygame.K_LEFT]:
+            if self.anime != canime["toleft"]:
+               self.anime = canime["toleft"]
+               self.aindex = 0
+            self.point[0] -= self.speed
+         if (not keys[pygame.K_LEFT]) and (not keys[pygame.K_RIGHT]):
+            if self.anime != canime["stay"]:
+               self.anime = canime["stay"]
+               self.aindex = 0
+
+         self.rect.size = self.anime[self.aindex].get_size()
+         self.rect.center = (int(self.point[0]), int(self.point[1]))
+
+         # 限位
+         if self.rect.top < self.game_active_rect.top:
+            self.rect.top = self.game_active_rect.top
+            self.point[1] = self.rect.centery
+         elif self.rect.bottom > self.game_active_rect.bottom:
+            self.rect.bottom = self.game_active_rect.bottom
+            self.point[1] = self.rect.centery
+
+         # 穿墙
+         if self.rect.centerx <= self.game_active_rect.left:
+            self.rect.centerx = self.game_active_rect.right
+            self.point[0] = self.rect.centerx
+            globe.mgame.msmanager.play_SE("select")
+         elif self.rect.centerx >= self.game_active_rect.right:
+            self.rect.centerx = self.game_active_rect.left
+            self.point[0] = self.rect.centerx
+            globe.mgame.msmanager.play_SE("select")
+
+         # 顶上收点系统
+         if self.rect.top < 100:
+            globe.scgame.itmanager.getitem()
+
+         # 自动循环播放自机动画
+         if self.frame % 6 == 0:
+            self.aindex += 1
+         if self.aindex >= len(self.anime):
+            if self.anime == canime["stay"]:
+               self.aindex = 0
+            else:
+               self.aindex -= 4
+
+      def hit(self):
+         """定义撞弹后动作"""
+         if self.status == cstatus["normal"]:
+            globe.mgame.msmanager.play_SE("miss")
+            self.tcount = 0		# 重置记时器
+            self.status = cstatus["hit"]
+
+      def update(self):
+         """自机刷新函数"""
+         # 限制自机能量阈值为500
+         if self.power > 500:
+            self.power = 500
+         self.keys = pygame.key.get_pressed()
+         if self.status == cstatus["hit"]:
+            if self.tcount >= 20:
+               self.miss()
+            else:
+               self.tcount += 1
+
+         if self.status != cstatus["crash"]:
+            self.move()
+         else:
+            self.tcount += 1
+            if self.life < 0 and self.tcount == 20:
+               globe.hiscore = globe.scgame.high_score
+               globe.mgame.call(scene_gameover.Scene_GameOver)
+            if self.tcount <= 60:
+               self.point[1] -= 1
+            else:
+               self.status = cstatus["invincible"]
+               self.tcount = 0
+
+         if self.status == cstatus["invincible"]:
+            self.tcount += 1
+            if self.tcount > 300:
+               self.status = cstatus["normal"]
+               self.tcount = 0
+         elif self.status == cstatus["sc"]:
+            self.tcount += 1
+            if self.tcount > 360:
+               self.status = cstatus["scinvincible"]
+               globe.scgame.blmanager.clear_enbl()
+               self.tcount = 0
+         elif self.status == cstatus["scinvincible"]:
+            self.tcount += 1
+            if self.tcount > 180:
+               self.status = cstatus["normal"]
+               self.tcount = 0
+         self.frame += 1
+      ```
+
+      我们可以在 `PyGame` 中调用内置函数进行 `Sprite` 和组之间, 组与组之间, `Sprite` 和 `Sprite` 之间的矩形碰撞检测和像素级碰撞检测. 
+
+
+      `Sprite` 和 `Sprite` 之间的矩形碰撞检测: 
+      ```
+      pygame.sprite.collide_rect(first, second) #返回布尔值`
+      ```
+
+
+      `Sprite` 和组 之间的矩形碰撞检测
+
+      ```
+      #第一个参数是 Sprite，
+      #第二个参数是 Sprite Group，
+      #第三个参数为True，则碰撞检测后，组中所有碰撞的 Sprite 被删除
+      #返回值为组中被碰撞的 Sprite
+      collide_list = pygame.sprite.spritecollide(sprite,group,False)
+      ```
+
+      组与组之间的矩形碰撞检测
+
+      ```
+      #前两个参数都是组
+      #后两个参数，代表发生碰撞时，是否删除 Sprite
+      #该函数返回一个字典
+      #第一个组中的每一个 Sprite 都会添加到字典中
+      #第二组中与之碰撞的 Sprite 会添加到字典相应的条目中
+      hit_list = pygame.sprite.groupcollide(group1,group2,True,False)
+      ```
+      如我们使用的 `Sprite` 贴图具透明背景, 则可以使用下列方法进行像素级碰撞检测 (又称完美碰撞检测): 
+
+      首先, 要为被检测的 `Sprite` 赋予 `mask` 属性. 
+      ```
+      self.mask = pygame.mask.from_surface(self.image)
+      ```
+
+      其次, 调用函数执行像素级碰撞检测:
+      ```
+      pygame.sprite.spritecollide(sprite, group, False, pygame.sprite.collide_mask)
+      ```
+
+      <br>
+
+      在本项目中, 自机的碰撞检测即为完美碰撞检测. 
+
+<br>
+
+## 3. 设计子弹类 `Bullet` 和轨迹类 `Orbit`

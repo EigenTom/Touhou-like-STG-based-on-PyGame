@@ -177,9 +177,9 @@ class EnemyManager(object):
 				if i.rect.collidepoint(globe.scgame.player.point):
 					i.tishu()
 				else:
-					for j in globe.scgame.blmanager.plbullet:
+					for j in globe.scgame.blmanager.player_bullet:
 						if j[0].colliderect(i.rect) and i.status == globe.enstatus["normal"]:
-							globe.scgame.blmanager.plbullet.remove(j)
+							globe.scgame.blmanager.player_bullet.remove(j)
 							globe.scgame.score += damage
 							if not i.wudi:
 								i.health -= damage
